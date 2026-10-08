@@ -32,9 +32,16 @@ Consumer builds verify committed fixture bytes and do not download or regenerate
 this corpus. The following commands are producer-only; they require a separate
 Custom-Vision checkout at the pinned producer revision, using that checkout's
 documented Python environment. Its [generator](https://github.com/Antigro09/Custom-Vision/blob/61b2e636b11d4556097ee586d594e086d9d69dc4/tools/generate_protocol_fixtures.py)
-and tests are not tools in this Java repository. Generate the golden corpus there with:
+and tests are not tools in this Java repository. The recorded producer revisions
+were not reachable in the public producer remote during this consumer's publication
+check. Until they are published, explicitly supply a local producer checkout with
+the manifest's exact source bytes; never silently substitute producer main. Verify
+all files in `producer_sources_sha256` against that checkout before regeneration.
+This optional override has no effect on ordinary consumer builds. Generate there with:
 
 ```sh
+: "${CVJ_PRODUCER_CHECKOUT:?Set an explicit producer checkout matching manifest source hashes}"
+cd "$CVJ_PRODUCER_CHECKOUT"
 .venv/bin/python tools/generate_protocol_fixtures.py --contract-status matched_runtime
 .venv/bin/python -m pytest tests/test_protocol.py
 ```

@@ -9,6 +9,11 @@ The producer core revision is `61b2e636b11d4556097ee586d594e086d9d69dc4`;
 `fixtures/fixture-manifest.json` retains the producer's source and packet hashes.
 `fixtures/README.md` is adapted to identify the consumer mirror and producer-only
 generation instructions. Packet bytes, schemas and normative fields are unchanged.
+These source revisions are provenance pins, not build-time downloads. The producer
+core revision was not yet publicly reachable during publication verification.
+Optional regeneration must use the explicit source-hash-verified checkout override
+documented in `fixtures/README.md` until the producer owner publishes that revision.
+Ordinary consumer builds need only this repository's committed corpus.
 
 `reference/legacy-publisher.py` and `reference/legacy-networktables.md` are copied
 from the same owner's repository at
