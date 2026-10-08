@@ -1,0 +1,2 @@
+rootProject.name = 'Custom-Vision-Java'
+include 'protocol', 'wpilib2026', 'wpilib2027'

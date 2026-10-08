@@ -1,0 +1,123 @@
+{
+  "api_version": "0.1.0-local",
+  "package": "org.customvision.protocol",
+  "java_release": 17,
+  "producer_final_revision": "e9efef9e534f3841acacf782131c927485b7b4f2",
+  "producer_core_revision": "61b2e636b11d4556097ee586d594e086d9d69dc4",
+  "legacy_revision": "2aee0fc1794b31539b02000d16791d4eec8df29a",
+  "files": [
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/CaptureReorderBuffer.java",
+      "sha256": "bed516275f3c7bbc70041f89fd3c28ca14df20b9b24affed182c57709ff5a70f",
+      "bytes": 5525
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/ClockMapper.java",
+      "sha256": "a289801b47f3622bc7ba735a18831be422b296ebc2052a66ff6716e81f32ebd9",
+      "bytes": 10219
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/DecodeException.java",
+      "sha256": "dded105d509ba96ea7c2094f8dff7b8ab8cfe38c1f2e27a622ea2a5e3bd68397",
+      "bytes": 1257
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/HistoricalPoseProvider.java",
+      "sha256": "603e4a51c2c4d90df1058ab9076d8d567e57d014880430b6986bcee33292ef72",
+      "bytes": 4693
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/Json.java",
+      "sha256": "827f371effdd60c124375e2dfcea70892be8cf402ecd4c096fff21b91d85767c",
+      "bytes": 9742
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/Packet.java",
+      "sha256": "8d27536b9690132ab7e30824fef75e41062027d108e59748fd126c3ff257c523",
+      "bytes": 16089
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/ProtocolDecoder.java",
+      "sha256": "f2c4ba301ae6852c19529a7083c6378afb6f15f78a1b40f14939fe5cbd52555c",
+      "bytes": 39626
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/RawQueue.java",
+      "sha256": "2ca148166ed885cb132861a868bb136f6f4af21e0f81acb8b7279bd0d961c521",
+      "bytes": 393
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/SourceKey.java",
+      "sha256": "23f973bb1527b8a797ca3abe21129e20387dd6f9d9b51a53edba7fbb9e3064e6",
+      "bytes": 1233
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/SourceSession.java",
+      "sha256": "ff1006fd2aa07f185d2ac751f0a2bcf7a57f6fde52b2b95321656c5fe490b6af",
+      "bytes": 20159
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/SyncSnapshot.java",
+      "sha256": "f80c07ddd8c9093ce0296df981c58777793495bff05f5735000603587da23a63",
+      "bytes": 1270
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/TimeVersion.java",
+      "sha256": "5877edc2d7659aa568829ac143d580ef305e29196f837d7ba3530abc19e929fb",
+      "bytes": 587
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/TransportSample.java",
+      "sha256": "f0a5bf2c021f0c258f3c4d1f1986d23e178f2200a85f487d5e5e5996e79ccd09",
+      "bytes": 609
+    },
+    {
+      "path": "protocol/src/main/java/org/customvision/protocol/VisionClient.java",
+      "sha256": "7113585bd4a4033e99238f66fdaefe5254c41564d8bb8eb75ec092903e2f5ec9",
+      "bytes": 14109
+    },
+    {
+      "path": "fixtures/fixture-manifest.json",
+      "sha256": "f256f08b839bf664c0454f2c984f9ddabc2ce1e9aa62fc83f87b424aab592230",
+      "bytes": 34967
+    },
+    {
+      "path": "fixtures/legacy-manifest.json",
+      "sha256": "7241b6acbd7be4c5b0b9f2483dffda5c4a400fc17964145f6fc8f0e229c303a5",
+      "bytes": 2040
+    },
+    {
+      "path": "gradle/verification-metadata.xml",
+      "sha256": "cadf4dff957447660e0e4f240f870f60c43a0bfd9989fd25a438168f7d816158",
+      "bytes": 15550
+    },
+    {
+      "path": "protocol/gradle.lockfile",
+      "sha256": "32c18865f15ccad306d20447fee69d3e20022180985d3f5cdd4f564e3c363697",
+      "bytes": 294
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "protocol/build/libs/protocol-0.1.0-local-sources.jar",
+      "sha256": "eab782d08a5c42e66366e82c906963515487b94504d7c61c2204deaf8d6ecd68",
+      "bytes": 35148
+    },
+    {
+      "path": "protocol/build/libs/protocol-0.1.0-local.jar",
+      "sha256": "3b04bfff73b83291aa8673254ff7112e9c596c9da33f9056dcd15ef7cc9f7b4f",
+      "bytes": 114781
+    },
+    {
+      "path": "wpilib2026/build/libs/wpilib2026-0.1.0-local.jar",
+      "sha256": "84ad8fd423b3fc90bd17caa2d890427cc1b306e9977d5e02d8d7cefe361f9763",
+      "bytes": 8269
+    },
+    {
+      "path": "wpilib2027/build/libs/wpilib2027-0.1.0-local.jar",
+      "sha256": "d5b4d3c97ff9950df80ea7bd7c32806de2b9d977977d460d6db88d5ece11cacc",
+      "bytes": 8273
+    }
+  ],
+  "integration": "Actual robot-code integration on hold; protocol has no NT/HAL/World-State dependency"
+}

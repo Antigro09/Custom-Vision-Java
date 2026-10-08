@@ -1,0 +1,78 @@
+{
+  "desktop_classifier": "osxuniversal",
+  "hardware": false,
+  "artifacts": [
+    {
+      "name": "alpha7-datalog-cpp.zip",
+      "sha256": "281c70de2f9b75263eb51afb97f96ce1e64240332a9d72190b85cbbfdc51a5f7",
+      "bytes": 344803,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/org/wpilib/datalog/datalog-cpp/2027.0.0-alpha-7/datalog-cpp-2027.0.0-alpha-7-osxuniversal.zip"
+    },
+    {
+      "name": "alpha7-datalog-java.jar",
+      "sha256": "1aa1042c101e159824aba21635c9750cce0545c7c06051248365d7584539ae70",
+      "bytes": 41256,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/org/wpilib/datalog/datalog-java/2027.0.0-alpha-7/datalog-java-2027.0.0-alpha-7.jar"
+    },
+    {
+      "name": "alpha7-ntcore-cpp.zip",
+      "sha256": "49c307870055518bf337fc3518c1905bac9f95bff05b7918a2616f7797f820e5",
+      "bytes": 1109995,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/org/wpilib/ntcore/ntcore-cpp/2027.0.0-alpha-7/ntcore-cpp-2027.0.0-alpha-7-osxuniversal.zip"
+    },
+    {
+      "name": "alpha7-ntcore-java.jar",
+      "sha256": "63867e59b758bf63e82fe11b19c6fb6335396c7a828788fcc121ed26dff21e49",
+      "bytes": 144352,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/org/wpilib/ntcore/ntcore-java/2027.0.0-alpha-7/ntcore-java-2027.0.0-alpha-7.jar"
+    },
+    {
+      "name": "alpha7-wpimath-java.jar",
+      "sha256": "720d9441b5abadc5cc2cc28f3f0ebe1c32cec24fc7e874b0a01b08daba183219",
+      "bytes": 783846,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/org/wpilib/wpimath/wpimath-java/2027.0.0-alpha-7/wpimath-java-2027.0.0-alpha-7.jar"
+    },
+    {
+      "name": "alpha7-wpinet-cpp.zip",
+      "sha256": "136ba202fd348b24c091412b56ba39045d676755482c743c0b0c10308819b11b",
+      "bytes": 1419657,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/org/wpilib/wpinet/wpinet-cpp/2027.0.0-alpha-7/wpinet-cpp-2027.0.0-alpha-7-osxuniversal.zip"
+    },
+    {
+      "name": "alpha7-wpiunits-java.jar",
+      "sha256": "c8cd062785ce6ada6af6e092e80555ad345aa1c4a3eec622fc2dec88eec8f7c3",
+      "bytes": 248917,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/org/wpilib/wpiunits/wpiunits-java/2027.0.0-alpha-7/wpiunits-java-2027.0.0-alpha-7.jar"
+    },
+    {
+      "name": "alpha7-wpiutil-cpp.zip",
+      "sha256": "6f786cf70b005389a8c5f171b6c499ec693f19cc6aababc8150c2312fcc9e715",
+      "bytes": 894560,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/org/wpilib/wpiutil/wpiutil-cpp/2027.0.0-alpha-7/wpiutil-cpp-2027.0.0-alpha-7-osxuniversal.zip"
+    },
+    {
+      "name": "alpha7-wpiutil-java.jar",
+      "sha256": "086803153340e3070b1f0c4a297b4775f920f6ed53cd134c6d8b28ed19d4b664",
+      "bytes": 108752,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/org/wpilib/wpiutil/wpiutil-java/2027.0.0-alpha-7/wpiutil-java-2027.0.0-alpha-7.jar"
+    },
+    {
+      "name": "ntcore-cpp-2026.2.1-osxuniversal.zip",
+      "sha256": "1d6833f340401b756b777b7a247f04bc714b02a448a631f44b5a780b421a98d2",
+      "bytes": 1306180,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/edu/wpi/first/ntcore/ntcore-cpp/2026.2.1/ntcore-cpp-2026.2.1-osxuniversal.zip"
+    },
+    {
+      "name": "wpiutil-cpp-2026.2.1-osxuniversal.zip",
+      "sha256": "ac8992940ae5e1bc7ccd2816d27874cf6810f282ce5138de818e535a20373203",
+      "bytes": 2722802,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/edu/wpi/first/wpiutil/wpiutil-cpp/2026.2.1/wpiutil-cpp-2026.2.1-osxuniversal.zip"
+    },
+    {
+      "name": "wpinet-cpp-2026.2.1-osxuniversal.zip",
+      "sha256": "bc1253205b7657607ea282f0b7dc3bad53c633576819698bc7b657423190f2c7",
+      "bytes": 1156843,
+      "url": "https://frcmaven.wpi.edu/artifactory/api/download/release/edu/wpi/first/wpinet/wpinet-cpp/2026.2.1/wpinet-cpp-2026.2.1-osxuniversal.zip"
+    }
+  ]
+}

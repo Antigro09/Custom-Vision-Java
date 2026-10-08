@@ -1,0 +1,57 @@
+plugins { id 'java-library' }
+java { toolchain { languageVersion = JavaLanguageVersion.of(17) } }
+repositories {
+    maven { url = 'https://frcmaven.wpi.edu/artifactory/api/download/release' }
+    mavenCentral()
+}
+def wpilibVersion = '2026.2.1'
+dependencies {
+    api project(':protocol')
+    api "edu.wpi.first.ntcore:ntcore-java:${wpilibVersion}"
+    api "edu.wpi.first.wpimath:wpimath-java:${wpilibVersion}"
+    implementation "edu.wpi.first.wpiutil:wpiutil-java:${wpilibVersion}"
+    implementation "edu.wpi.first.wpiunits:wpiunits-java:${wpilibVersion}"
+    implementation 'us.hebi.quickbuf:quickbuf-runtime:1.4'
+    implementation 'org.ejml:ejml-simple:0.44.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.19.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.19.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.19.2'
+}
+tasks.register('adapterTest', JavaExec) {
+    workingDir rootProject.projectDir
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'org.customvision.wpilib2026.AdapterTests'
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) }
+}
+tasks.named('check') { dependsOn 'adapterTest' }
+tasks.register('nativeLoopback', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'org.customvision.wpilib2026.NativeLoopbackTests'
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) }
+    doFirst {
+        if (!project.hasProperty('nativeDir')) throw new GradleException('Pass -PnativeDir=<directory containing pinned 2026.2.1 native libraries>. See docs/targets.md.')
+        jvmArgs "-Djava.library.path=${rootProject.file(project.property('nativeDir')).absolutePath}"
+        if (project.hasProperty('fixturePath')) args rootProject.file(project.property('fixturePath')).absolutePath
+    }
+}
+
+tasks.register('queueBenchmark', JavaExec) {
+    dependsOn testClasses
+    workingDir rootProject.projectDir
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'org.customvision.wpilib2026.QueueWorkBenchmark'
+    jvmArgs '-Xmx256m'
+}
+
+tasks.register('pythonInteropClasspath') {
+    dependsOn testClasses
+    def output = rootProject.layout.buildDirectory.file('python-nt-interop/classpath2026.txt')
+    outputs.file output
+    doLast {
+        def target = output.get().asFile
+        target.parentFile.mkdirs()
+        target.text = sourceSets.test.runtimeClasspath.asPath
+    }
+}

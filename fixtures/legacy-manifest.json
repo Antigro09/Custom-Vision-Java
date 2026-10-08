@@ -1,0 +1,45 @@
+{
+  "manifest_version": 1,
+  "profile": "legacy-schema2",
+  "producer_revision": "2aee0fc1794b31539b02000d16791d4eec8df29a",
+  "publisher_sha256": "0b156bd4929d00183593d46cbe66dbc70d962622c77ec4a6a4e68992b05e0565",
+  "hardware": false,
+  "provenance": "Actual pinned baseline Publisher.publish -> wire_packet -> json.dumps with stub NT topics and integer microsecond clocks; geometry inputs derived from producer-owned synthetic goldens, additive keys removed before legacy publication.",
+  "fixtures": [
+    {
+      "name": "single_tag",
+      "path": "legacy/single_tag.json",
+      "sha256": "46304680a14198b578c082bc161512fd91a58ef04bc986cbb7044ee2378ec685",
+      "byte_count": 2350,
+      "input_additive_sha256": "92cc685066cc44db90928d561945baa1bce8895519c115d20d046f0d7b50eed0"
+    },
+    {
+      "name": "same_frame_watchdog",
+      "path": "legacy/same_frame_watchdog.json",
+      "sha256": "8c7887b4d3cfbf0e17d3474994ff3a217290b5af495552823260c002f73634f2",
+      "byte_count": 1076,
+      "input_additive_sha256": "48868e0a8135c21242e61c8414fdf0e4891a7468a2ed27b7477a03e5b8cb0d97"
+    },
+    {
+      "name": "objects_compact_covariance_selection",
+      "path": "legacy/objects_compact_covariance_selection.json",
+      "sha256": "28a265a1f66f063d3024981463d972416a697e87aeeb31b026534ea8a3fb5995",
+      "byte_count": 2995,
+      "input_additive_sha256": "c0e5c0ea9241423e1d3aa8fe19373931cf3fab080ced9af2b9021d9eaf6fc6d9"
+    },
+    {
+      "name": "empty_objects",
+      "path": "legacy/empty_objects.json",
+      "sha256": "260bcf56379c6a13477155b8a147a9db7c7c0f628f055ff022bfca0aa8d2681b",
+      "byte_count": 863,
+      "input_additive_sha256": "19fbeda2124177a3eebf5571698e6cd9ce1b0c7e2fc746fc1223031fd68229fd"
+    },
+    {
+      "name": "poi_camera_only",
+      "path": "legacy/poi_camera_only.json",
+      "sha256": "5c3db3afb4744e7b583390e3ecfb812a5a0000c036f27f15ad1cc9a2d8f6a227",
+      "byte_count": 2368,
+      "input_additive_sha256": "611bab6e8959f9f3660717e51e18de7d912a3509879f5a402441656bb6d78b1c"
+    }
+  ]
+}

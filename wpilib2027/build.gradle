@@ -1,0 +1,49 @@
+plugins { id 'java-library' }
+java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
+repositories {
+    maven { url = 'https://frcmaven.wpi.edu/artifactory/api/download/release' }
+    mavenCentral()
+}
+def wpilibVersion = '2027.0.0-alpha-7'
+dependencies {
+    api project(':protocol')
+    api "org.wpilib.ntcore:ntcore-java:${wpilibVersion}"
+    api "org.wpilib.wpimath:wpimath-java:${wpilibVersion}"
+    implementation "org.wpilib.wpiutil:wpiutil-java:${wpilibVersion}"
+    implementation "org.wpilib.wpiunits:wpiunits-java:${wpilibVersion}"
+    implementation "org.wpilib.datalog:datalog-java:${wpilibVersion}"
+    implementation 'us.hebi.quickbuf:quickbuf-runtime:1.4'
+    implementation 'org.ejml:ejml-java9module:0.46.0'
+    implementation 'io.avaje:avaje-jsonb:3.14'
+}
+tasks.register('adapterTest', JavaExec) {
+    workingDir rootProject.projectDir
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'org.customvision.wpilib2027.AdapterTests'
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+}
+tasks.named('check') { dependsOn 'adapterTest' }
+tasks.register('nativeLoopback', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'org.customvision.wpilib2027.NativeLoopbackTests'
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+    jvmArgs '--enable-native-access=ALL-UNNAMED'
+    doFirst {
+        if (!project.hasProperty('nativeDir')) throw new GradleException('Pass -PnativeDir=<directory containing pinned alpha-7 native libraries>. See docs/targets.md.')
+        jvmArgs "-Djava.library.path=${rootProject.file(project.property('nativeDir')).absolutePath}"
+        if (project.hasProperty('fixturePath')) args rootProject.file(project.property('fixturePath')).absolutePath
+    }
+}
+
+tasks.register('pythonInteropClasspath') {
+    dependsOn testClasses
+    def output = rootProject.layout.buildDirectory.file('python-nt-interop/classpath2027.txt')
+    outputs.file output
+    doLast {
+        def target = output.get().asFile
+        target.parentFile.mkdirs()
+        target.text = sourceSets.test.runtimeClasspath.asPath
+    }
+}

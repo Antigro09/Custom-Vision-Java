@@ -1,0 +1,21 @@
+# This is a Gradle generated file for dependency locking.
+# Manual edits can break the build and are not advised.
+# This file is expected to be part of source control.
+com.fasterxml.jackson.core:jackson-annotations:2.19.2=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+com.fasterxml.jackson.core:jackson-core:2.19.2=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+com.fasterxml.jackson.core:jackson-databind:2.19.2=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+com.fasterxml.jackson:jackson-bom:2.19.2=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+edu.wpi.first.ntcore:ntcore-java:2026.2.1=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+edu.wpi.first.wpimath:wpimath-java:2026.2.1=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+edu.wpi.first.wpiunits:wpiunits-java:2026.2.1=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+edu.wpi.first.wpiutil:wpiutil-java:2026.2.1=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.ejml:ejml-cdense:0.44.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.ejml:ejml-core:0.44.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.ejml:ejml-ddense:0.44.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.ejml:ejml-dsparse:0.44.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.ejml:ejml-fdense:0.44.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.ejml:ejml-fsparse:0.44.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.ejml:ejml-simple:0.44.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.ejml:ejml-zdense:0.44.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+us.hebi.quickbuf:quickbuf-runtime:1.4=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+empty=annotationProcessor,testAnnotationProcessor

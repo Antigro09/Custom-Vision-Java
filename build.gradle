@@ -1,0 +1,17 @@
+allprojects {
+    group = 'org.customvision'
+    version = '0.1.0-local'
+}
+
+subprojects { dependencyLocking { lockAllConfigurations() } }
+
+subprojects {
+    plugins.withId('java') {
+        // These dependency-free suites are Java main programs, explicitly run by check tasks.
+        tasks.named('test') { enabled = false }
+        tasks.withType(Jar).configureEach {
+            preserveFileTimestamps = false
+            reproducibleFileOrder = true
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+  "environment":"Mac OS X 26.6.2 aarch64",
+  "java":"17.0.20.1+1",
+  "threads":1,
+  "warmup_packets":250,
+  "sample_packets":1000,
+  "payload_utf8_bytes":2882,
+  "p50_ns":27875,
+  "p95_ns":59833,
+  "p99_ns":123125,
+  "max_ns":782458,
+  "allocated_bytes_per_packet":60506,
+  "checksum":52500,
+  "limitations":"Single small synthetic producer fixture on this Mac with 256MiB heap; includes parse/validation/immutable DTO copy. Excludes NT allocation/native transport, estimator, controller, camera, loaded robot loop."
+}

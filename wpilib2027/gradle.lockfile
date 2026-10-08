@@ -1,0 +1,14 @@
+# This is a Gradle generated file for dependency locking.
+# Manual edits can break the build and are not advised.
+# This file is expected to be part of source control.
+io.avaje:avaje-json-core:3.14=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+io.avaje:avaje-jsonb-inject-plugin:3.14=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+io.avaje:avaje-jsonb:3.14=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.ejml:ejml-java9module:0.46.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.wpilib.datalog:datalog-java:2027.0.0-alpha-7=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.wpilib.ntcore:ntcore-java:2027.0.0-alpha-7=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.wpilib.wpimath:wpimath-java:2027.0.0-alpha-7=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.wpilib.wpiunits:wpiunits-java:2027.0.0-alpha-7=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.wpilib.wpiutil:wpiutil-java:2027.0.0-alpha-7=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+us.hebi.quickbuf:quickbuf-runtime:1.4=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+empty=annotationProcessor,testAnnotationProcessor

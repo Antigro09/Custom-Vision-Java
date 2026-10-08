@@ -1,0 +1,12 @@
+.gradle/
+.gradle-user/
+build/
+**/build/
+.toolchains/
+.deps/
+*.jfr
+
+.downloads/
+.gradle2027-user/
+**/__pycache__/
+.venv-interop/
