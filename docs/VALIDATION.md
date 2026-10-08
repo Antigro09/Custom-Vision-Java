@@ -8,7 +8,7 @@ No robot code is integrated or deployed, and no release artifact is published.
 Passed pure Java 17 `--release 17 -Xlint:all -Werror` and aggregate main suites:
 101 adversarial decoder assertions, 445 golden assertions covering 27 exact-byte
 producer strings and six hashed malformed examples, five actual pinned legacy
-Publisher strings, 223 lifecycle assertions, 25 client orchestration assertions,
+Publisher strings, 223 lifecycle assertions, 49 client orchestration assertions,
 and clock/history/global reorder tests. `tools/check_protocol.sh` reproduces these
 without downloads/native sockets; `generate_legacy_fixtures.py --check` reproduces
 baseline Python serialization and checks source and byte hashes.
@@ -65,3 +65,19 @@ maximum 293.959 microseconds and 856 allocated bytes/batch. Scheduler/JVM noise 
 this small fixture limit extrapolation. No controller deadline is established.
 
 Dependencies and producer bytes are pinned locally; actual robot integration remains unrun.
+
+The local `0.2.0-local.1` facade/controller candidate adds 124 common facade
+assertions, 141 motion-request contract assertions and 14 wrapper assertions per
+WPILib profile. Both separately pinned Gradle builds passed, including the
+unpacked controller-JAR no-motion examples. Live admission results, full clock
+results and receipt identity survive into the private-constructed measurement.
+Origin/generation gates reject retained observations after invalidation, clock
+failure, overload or configuration changes, including invalidation and recovery
+within one poll. The synchronization-binding exception path fails closed before
+the explicit error is rethrown. A read-only review found no unresolved correctness
+issues in these boundaries. No motion ports or scheduler were invoked by tests.
+
+See the [local candidate report](LOCAL_CANDIDATE_REPORT.md) for the final actual
+Maven-coordinate install, packaging and native World-State bridge outcomes. The
+old published source baseline does not supply the candidate's new admitted
+envelope/delivery-gate API. This candidate remains local and unpushed.

@@ -1,17 +1,49 @@
 allprojects {
     group = 'org.customvision'
-    version = '0.1.0-local'
+    version = '0.2.0-local.1'
 }
 
 subprojects { dependencyLocking { lockAllConfigurations() } }
 
 subprojects {
     plugins.withId('java') {
+        def ownArtifactId = "customvision-${project.name}"
+        base { archivesName = ownArtifactId }
         // These dependency-free suites are Java main programs, explicitly run by check tasks.
         tasks.named('test') { enabled = false }
         tasks.withType(Jar).configureEach {
             preserveFileTimestamps = false
             reproducibleFileOrder = true
         }
+        plugins.withId('maven-publish') { publishing {
+            publications {
+                controllerLibrary(MavenPublication) {
+                    from components.java
+                    artifactId = ownArtifactId
+                    pom {
+                        name = "Custom-Vision Java ${project.name}"
+                        description = 'Local candidate robot-facing library; no hosted artifact is declared.'
+                        url = 'https://github.com/Antigro09/Custom-Vision-Java'
+                    }
+                }
+            }
+            repositories {
+                maven {
+                    name = 'candidate'
+                    url = rootProject.layout.buildDirectory.dir('candidate-maven')
+                }
+            }
+        } }
+    }
+}
+
+['2026', '2027'].each { targetYear ->
+    tasks.register("package${targetYear}", Exec) {
+        dependsOn(['protocol', 'api', 'controls', "wpilib${targetYear}"].collect {
+            ":${it}:publishControllerLibraryPublicationToCandidateRepository"
+        })
+        workingDir rootProject.projectDir
+        commandLine 'python3', 'tools/package_controller.py', '--profile', targetYear,
+            '--version', rootProject.version.toString()
     }
 }

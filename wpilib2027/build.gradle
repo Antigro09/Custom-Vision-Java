@@ -1,5 +1,11 @@
-plugins { id 'java-library' }
-java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(25) }
+    withSourcesJar()
+}
 repositories {
     maven { url = 'https://frcmaven.wpi.edu/artifactory/api/download/release' }
     mavenCentral()
@@ -7,13 +13,15 @@ repositories {
 def wpilibVersion = '2027.0.0-alpha-7'
 dependencies {
     api project(':protocol')
+    api project(':api')
     api "org.wpilib.ntcore:ntcore-java:${wpilibVersion}"
     api "org.wpilib.wpimath:wpimath-java:${wpilibVersion}"
-    implementation "org.wpilib.wpiutil:wpiutil-java:${wpilibVersion}"
-    implementation "org.wpilib.wpiunits:wpiunits-java:${wpilibVersion}"
-    implementation "org.wpilib.datalog:datalog-java:${wpilibVersion}"
-    implementation 'us.hebi.quickbuf:quickbuf-runtime:1.4'
-    implementation 'org.ejml:ejml-java9module:0.46.0'
+    // Public NT/Pose/Matrix signatures expose these types to facade consumers.
+    api "org.wpilib.wpiutil:wpiutil-java:${wpilibVersion}"
+    api "org.wpilib.wpiunits:wpiunits-java:${wpilibVersion}"
+    api "org.wpilib.datalog:datalog-java:${wpilibVersion}"
+    api 'us.hebi.quickbuf:quickbuf-runtime:1.4'
+    api 'org.ejml:ejml-java9module:0.46.0'
     implementation 'io.avaje:avaje-jsonb:3.14'
 }
 tasks.register('adapterTest', JavaExec) {
@@ -24,6 +32,30 @@ tasks.register('adapterTest', JavaExec) {
     javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
 }
 tasks.named('check') { dependsOn 'adapterTest' }
+tasks.register('captainApiTest', JavaExec) {
+    workingDir rootProject.projectDir
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'org.customvision.wpilib2027.CaptainApiTests'
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+}
+tasks.named('check') { dependsOn 'captainApiTest' }
+tasks.register('installExampleCheck', JavaCompile) {
+    dependsOn rootProject.tasks.named('package2027')
+    source = rootProject.fileTree('examples/install-2027') { include '*.java' }
+    destinationDirectory = layout.buildDirectory.dir('install-example-classes')
+    javaCompiler = javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(25) }
+    options.release = 25
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-Xlint:all', '-Werror']
+    def externalLibraries = configurations.runtimeClasspath.incoming.artifactView {
+        componentFilter { it instanceof org.gradle.api.artifacts.component.ModuleComponentIdentifier }
+    }.files
+    classpath = externalLibraries + rootProject.fileTree("build/install-bundles/customvision-2027-${rootProject.version}/maven") {
+        include '**/*.jar'
+        exclude '**/*-sources.jar'
+    }
+}
 tasks.register('nativeLoopback', JavaExec) {
     dependsOn testClasses
     classpath = sourceSets.test.runtimeClasspath

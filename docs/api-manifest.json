@@ -1,11 +1,131 @@
 {
-  "api_version": "0.1.0-local",
+  "api_version": "0.2.0-local.1",
+  "format": "customvision-api-manifest-v2",
   "package": "org.customvision.protocol",
+  "packages": [
+    "org.customvision.protocol",
+    "org.customvision.api",
+    "org.customvision.controls",
+    "org.customvision.wpilib2026",
+    "org.customvision.wpilib2027"
+  ],
   "java_release": 17,
+  "source_revision": null,
+  "source_revision_policy": "Implementation commit will be pinned by a metadata-only follow-up; exact file hashes are authoritative.",
+  "public_baseline_revision": "ae67886da70223e9ee73683ee2bcd00dc3221469",
+  "candidate_publication": "local only, unpushed; public baseline lacks this admission/delivery-gate API",
   "producer_final_revision": "e9efef9e534f3841acacf782131c927485b7b4f2",
   "producer_core_revision": "61b2e636b11d4556097ee586d594e086d9d69dc4",
   "legacy_revision": "2aee0fc1794b31539b02000d16791d4eec8df29a",
+  "world_state_native_test_revision": "d24f2bbf11a4f9b3b73c7d3a05f3b6f416204117",
+  "protocol_source_manifest_sha256": "f25ec7090d1a36192ee4780465835ee6c6112bdf6b8caafa374bff50b7d3d8af",
+  "protocol_source_manifest_hash_encoding": "SHA256 of JSON protocol-source entry list, sort_keys=true, separators=(comma,colon), UTF-8",
+  "clock_units": {
+    "json_capture_fields": "integer microseconds",
+    "nt2026_metadata": "microseconds",
+    "nt2027_alpha7_metadata": "nanoseconds",
+    "robot_boundary": "nanoseconds",
+    "estimator": "seconds"
+  },
+  "measurement_accessors": [
+    "packet()",
+    "transport()",
+    "admission()",
+    "clock()",
+    "capture()"
+  ],
+  "delivery_gate": "VisionClient.DeliveryGate.isDeliverable(Measurement,long nowRobotNs); VisionRig/CustomVisionRig.observationDeliveryGate()",
   "files": [
+    {
+      "path": "api/build.gradle",
+      "sha256": "43f203363c2697d2ee2ab7dd1e693615a3d6fb31c7f18576d625b910d9fe8526",
+      "bytes": 548
+    },
+    {
+      "path": "api/gradle.lockfile",
+      "sha256": "a3f2b61a23984bda08da83fbd4188f1fc66daf74da02fc247ee0b835e952ec15",
+      "bytes": 277
+    },
+    {
+      "path": "api/src/main/java/org/customvision/api/CameraConfig.java",
+      "sha256": "f541db51ad7b30d3106a7a1e08de58312e438b3f274ee9e974e5dd331f7ceb71",
+      "bytes": 986
+    },
+    {
+      "path": "api/src/main/java/org/customvision/api/CameraInput.java",
+      "sha256": "009293487398125309da881b2e297e80e2f9101c5d16298c9dc9c2b9072eaa17",
+      "bytes": 595
+    },
+    {
+      "path": "api/src/main/java/org/customvision/api/PoseEstimate.java",
+      "sha256": "9a242f52fd7d23764eb1ff08b2363f4f62a8d1464aad8a65ff3befd3a86cffb6",
+      "bytes": 3235
+    },
+    {
+      "path": "api/src/main/java/org/customvision/api/PosePolicy.java",
+      "sha256": "1ccaeeef8acbe5c2affe28ee26a954b627fbbb33a0ba8e6f857c51836277db45",
+      "bytes": 7813
+    },
+    {
+      "path": "api/src/main/java/org/customvision/api/SyncEvidenceProvider.java",
+      "sha256": "849e9ef39bf86e777d242c7033c65162afbe652c82f3e2610de21687e9adddbe",
+      "bytes": 576
+    },
+    {
+      "path": "api/src/main/java/org/customvision/api/VisionRig.java",
+      "sha256": "22e87325d7160710254913db846a48f2e38ab5be09575acea5ff231d7bcb5e9b",
+      "bytes": 15995
+    },
+    {
+      "path": "build.gradle",
+      "sha256": "84c20566941846f26a4b74eb9afafbca953851126185b5e155a547209b1a113d",
+      "bytes": 1812
+    },
+    {
+      "path": "controls/build.gradle",
+      "sha256": "8e861b75bc44588cc2a11f8ee460f9b572aec7190cd9e820716ff13ab15ccec1",
+      "bytes": 531
+    },
+    {
+      "path": "controls/gradle.lockfile",
+      "sha256": "a3f2b61a23984bda08da83fbd4188f1fc66daf74da02fc247ee0b835e952ec15",
+      "bytes": 277
+    },
+    {
+      "path": "controls/src/main/java/org/customvision/controls/DriveRequests.java",
+      "sha256": "3c43b5551ebd05f9eeef28f2257c43436c6b5dbc02f3d8cbd7dd9c47cb40080c",
+      "bytes": 30329
+    },
+    {
+      "path": "controls/src/main/java/org/customvision/controls/NoMotionExample.java",
+      "sha256": "a557d72436e6be92f114b34f9bd8d7509a3aa59ee87f9904aea430489b942f63",
+      "bytes": 4406
+    },
+    {
+      "path": "fixtures/fixture-manifest.json",
+      "sha256": "f256f08b839bf664c0454f2c984f9ddabc2ce1e9aa62fc83f87b424aab592230",
+      "bytes": 34967
+    },
+    {
+      "path": "fixtures/legacy-manifest.json",
+      "sha256": "7241b6acbd7be4c5b0b9f2483dffda5c4a400fc17964145f6fc8f0e229c303a5",
+      "bytes": 2040
+    },
+    {
+      "path": "gradle/verification-metadata.xml",
+      "sha256": "cadf4dff957447660e0e4f240f870f60c43a0bfd9989fd25a438168f7d816158",
+      "bytes": 15550
+    },
+    {
+      "path": "protocol/build.gradle",
+      "sha256": "30756accbb546b866bef69fa12aae64ba428099a31da632cf1ede8ad7e76436f",
+      "bytes": 766
+    },
+    {
+      "path": "protocol/gradle.lockfile",
+      "sha256": "32c18865f15ccad306d20447fee69d3e20022180985d3f5cdd4f564e3c363697",
+      "bytes": 294
+    },
     {
       "path": "protocol/src/main/java/org/customvision/protocol/CaptureReorderBuffer.java",
       "sha256": "bed516275f3c7bbc70041f89fd3c28ca14df20b9b24affed182c57709ff5a70f",
@@ -73,51 +193,168 @@
     },
     {
       "path": "protocol/src/main/java/org/customvision/protocol/VisionClient.java",
-      "sha256": "7113585bd4a4033e99238f66fdaefe5254c41564d8bb8eb75ec092903e2f5ec9",
-      "bytes": 14109
+      "sha256": "0cb6e31b61de4d6cb6d9cbf514a8c7f20a7707789fc536694add81533173abaa",
+      "bytes": 19846
     },
     {
-      "path": "fixtures/fixture-manifest.json",
-      "sha256": "f256f08b839bf664c0454f2c984f9ddabc2ce1e9aa62fc83f87b424aab592230",
-      "bytes": 34967
+      "path": "reference/native-artifact-pins.json",
+      "sha256": "523d163b96895ded93d53701f9ec8cb0bb0b71e35f6688aba24707ec890f5365",
+      "bytes": 3953
     },
     {
-      "path": "fixtures/legacy-manifest.json",
-      "sha256": "7241b6acbd7be4c5b0b9f2483dffda5c4a400fc17964145f6fc8f0e229c303a5",
-      "bytes": 2040
+      "path": "settings.gradle",
+      "sha256": "7b755ad4e018e1a7637bec2de0dbfd748b841622b8432d288c7279a237092a44",
+      "bytes": 106
     },
     {
-      "path": "gradle/verification-metadata.xml",
-      "sha256": "cadf4dff957447660e0e4f240f870f60c43a0bfd9989fd25a438168f7d816158",
-      "bytes": 15550
+      "path": "tools/check_api_manifest.py",
+      "sha256": "fae22593d6f2b0c436fe812e4f7ad0d00054887af0fd855adfb384bd82d53eac",
+      "bytes": 1331
     },
     {
-      "path": "protocol/gradle.lockfile",
-      "sha256": "32c18865f15ccad306d20447fee69d3e20022180985d3f5cdd4f564e3c363697",
-      "bytes": 294
+      "path": "tools/check_native_world_state_bridge.py",
+      "sha256": "a2a6839950df32d3f8fe90709fe5d11fe1bdfd67e07e32d9bdcbcd0822d8eb90",
+      "bytes": 8914
+    },
+    {
+      "path": "tools/check_offline_install.py",
+      "sha256": "7d7de4939d15e25dfe7739f6f5464f74c931c947bfc371e8d3c45c6cf942f6c4",
+      "bytes": 5476
+    },
+    {
+      "path": "tools/install_controller.py",
+      "sha256": "1afb2afd8839a61ca5466db0ed7d2fd9e9f2159824818f1dedbf822d2d15a490",
+      "bytes": 3776
+    },
+    {
+      "path": "tools/package_controller.py",
+      "sha256": "b2da0f12ad2cab9ae07aea11d2a38e1cea705047f3b055ccc46654f6a688cccf",
+      "bytes": 9787
+    },
+    {
+      "path": "wpilib2026/build.gradle",
+      "sha256": "c9acae3668caed299292e63a9c138d93963b801a4602f57fa160cb24421071ee",
+      "bytes": 3873
+    },
+    {
+      "path": "wpilib2026/gradle.lockfile",
+      "sha256": "06a659727a13abcc44fb11ba78435e71100383038eb4761ce2faa484a66ef2ca",
+      "bytes": 2141
+    },
+    {
+      "path": "wpilib2026/src/main/java/org/customvision/wpilib2026/CustomVisionRig.java",
+      "sha256": "f6ce0c3dba524f10d194a418a6c8c9b02d42dc5ffccecf65b57427c80a2e8fc2",
+      "bytes": 5130
+    },
+    {
+      "path": "wpilib2026/src/main/java/org/customvision/wpilib2026/GeometryConversions.java",
+      "sha256": "b6664b78518c0d74fbe825dc8ba9b6fdb69757be389426f9ba46794166fea857",
+      "bytes": 1278
+    },
+    {
+      "path": "wpilib2026/src/main/java/org/customvision/wpilib2026/NtResultQueue.java",
+      "sha256": "8a41cee98608577c98c112d76c6403c00ef01a96610830160afb9888d727fb2a",
+      "bytes": 7265
+    },
+    {
+      "path": "wpilib2026/src/main/java/org/customvision/wpilib2026/WpilibPoseEstimate.java",
+      "sha256": "ec9f6e4e05df6c016385ce984abbe1bf3d45473006c3f83e2c9dbc7726bd30f1",
+      "bytes": 1579
+    },
+    {
+      "path": "wpilib2027/build.gradle",
+      "sha256": "18a6b759926b9021a871ca2de9e020532fc40145ba7db6329dcb8c76f41e8500",
+      "bytes": 3576
+    },
+    {
+      "path": "wpilib2027/gradle.lockfile",
+      "sha256": "e45d06b0226fc7fff0b13d11c4051ca6067b7e1c0e831129ab109c47978b22b4",
+      "bytes": 1390
+    },
+    {
+      "path": "wpilib2027/src/main/java/org/customvision/wpilib2027/CustomVisionRig.java",
+      "sha256": "41b4df3635bc0d8d898ffb5e471345ce55064a6d97cfb6bb5d8080184e667b03",
+      "bytes": 5127
+    },
+    {
+      "path": "wpilib2027/src/main/java/org/customvision/wpilib2027/GeometryConversions.java",
+      "sha256": "bebccb2c62cc89cbcf353ff333df8f70b01440d0f429cf4fb4436b33582ad476",
+      "bytes": 1269
+    },
+    {
+      "path": "wpilib2027/src/main/java/org/customvision/wpilib2027/NtResultQueue.java",
+      "sha256": "52f2eaa30aa841d159d349e73304db54b41f49635393632e4ea8c44399f60013",
+      "bytes": 7247
+    },
+    {
+      "path": "wpilib2027/src/main/java/org/customvision/wpilib2027/WpilibPoseEstimate.java",
+      "sha256": "951903188817ad8bc24be4c8c36b2aecdb6bd3e85c35dcdccbb616e23d33bf92",
+      "bytes": 1575
     }
   ],
   "artifacts": [
     {
-      "path": "protocol/build/libs/protocol-0.1.0-local-sources.jar",
-      "sha256": "eab782d08a5c42e66366e82c906963515487b94504d7c61c2204deaf8d6ecd68",
-      "bytes": 35148
+      "path": "protocol/build/libs/customvision-protocol-0.2.0-local.1.jar",
+      "sha256": "62d5a16c558a2fc11855f1f675fc09efe0f3b878eb0bc5e61d64ae4ac8bcc85f",
+      "bytes": 117215
     },
     {
-      "path": "protocol/build/libs/protocol-0.1.0-local.jar",
-      "sha256": "3b04bfff73b83291aa8673254ff7112e9c596c9da33f9056dcd15ef7cc9f7b4f",
-      "bytes": 114781
+      "path": "protocol/build/libs/customvision-protocol-0.2.0-local.1-sources.jar",
+      "sha256": "bba10e7acd69dd5eec7128c6970f7a9f6039c4f69ee62c8e8f606bbe94662dc2",
+      "bytes": 36513
     },
     {
-      "path": "wpilib2026/build/libs/wpilib2026-0.1.0-local.jar",
-      "sha256": "84ad8fd423b3fc90bd17caa2d890427cc1b306e9977d5e02d8d7cefe361f9763",
-      "bytes": 8269
+      "path": "api/build/libs/customvision-api-0.2.0-local.1.jar",
+      "sha256": "795583814a263bcdaa517aef54eecbe0e38f565c486461f3238a4a056dedb9fc",
+      "bytes": 33103
     },
     {
-      "path": "wpilib2027/build/libs/wpilib2027-0.1.0-local.jar",
-      "sha256": "d5b4d3c97ff9950df80ea7bd7c32806de2b9d977977d460d6db88d5ece11cacc",
-      "bytes": 8273
+      "path": "api/build/libs/customvision-api-0.2.0-local.1-sources.jar",
+      "sha256": "94d31fab631d6273ae80e4d59784432fa2a6d47cf852daa0e8bd371b5f800c9a",
+      "bytes": 10497
+    },
+    {
+      "path": "controls/build/libs/customvision-controls-0.2.0-local.1.jar",
+      "sha256": "f2c9fd7c857eea9518f086e7b57924d733dcfe5c84e3d602c1ce16aa10e4a5b9",
+      "bytes": 45253
+    },
+    {
+      "path": "controls/build/libs/customvision-controls-0.2.0-local.1-sources.jar",
+      "sha256": "13217eb1ae18892791407a510f4388e8d08303ea157931458990d88623ec7bd9",
+      "bytes": 9575
+    },
+    {
+      "path": "wpilib2026/build/libs/customvision-wpilib2026-0.2.0-local.1.jar",
+      "sha256": "55da67ae37d3062986f3a70087f079e830ba8ff0ab94dcd7a5cf94778051cfd5",
+      "bytes": 14004
+    },
+    {
+      "path": "wpilib2026/build/libs/customvision-wpilib2026-0.2.0-local.1-sources.jar",
+      "sha256": "821403f05d35fc4d03f8197da780ce8f562515a541d9759f2fd4d5159a7555d7",
+      "bytes": 6508
+    },
+    {
+      "path": "wpilib2027/build/libs/customvision-wpilib2027-0.2.0-local.1.jar",
+      "sha256": "6784c9a1e3ad9da7d11789341f3447c843e2ecdcc77979677e1360e7682ed85e",
+      "bytes": 14007
+    },
+    {
+      "path": "wpilib2027/build/libs/customvision-wpilib2027-0.2.0-local.1-sources.jar",
+      "sha256": "3297a2b42663ab0002db897896f864556210169ffecade31d14bca870363ad21",
+      "bytes": 6506
     }
   ],
-  "integration": "Actual robot-code integration on hold; protocol has no NT/HAL/World-State dependency"
+  "bundles": [
+    {
+      "path": "build/install-bundles/customvision-2026-0.2.0-local.1.zip",
+      "sha256": "6b304e379cce5d37abf823605d4328a9f25f44e3ca7109f299a7bea771d25d89",
+      "bytes": 274454
+    },
+    {
+      "path": "build/install-bundles/customvision-2027-0.2.0-local.1.zip",
+      "sha256": "213653843eb5f1ba79f9d1d08a8207be3eadf1012e3d1691ef1040f2d222f7f7",
+      "bytes": 274345
+    }
+  ],
+  "integration": "Actual robot-code integration on hold; common modules have no NT/HAL/World-State dependency"
 }

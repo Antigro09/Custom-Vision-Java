@@ -6,22 +6,15 @@ java {
     toolchain { languageVersion = JavaLanguageVersion.of(17) }
     withSourcesJar()
 }
+dependencies { api project(':protocol') }
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
     options.compilerArgs += ['-Xlint:all', '-Werror']
 }
-tasks.register('replayTest', JavaExec) {
+tasks.register('apiTest', JavaExec) {
     dependsOn testClasses
     classpath = sourceSets.test.runtimeClasspath
-    mainClass = 'org.customvision.protocol.AllTests'
-    workingDir = rootProject.projectDir
-}
-check.dependsOn replayTest
-
-tasks.register('decoderBenchmark', JavaExec) {
-    dependsOn testClasses
+    mainClass = 'org.customvision.api.ApiTests'
     workingDir rootProject.projectDir
-    classpath = sourceSets.test.runtimeClasspath
-    mainClass = 'org.customvision.protocol.DecoderBenchmark'
-    jvmArgs '-Xmx256m'
 }
+check.dependsOn apiTest

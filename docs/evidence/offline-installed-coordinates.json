@@ -1,0 +1,69 @@
+{
+  "format": "customvision-offline-installed-coordinate-check-v1",
+  "passed": true,
+  "profiles": {
+    "2026": {
+      "profile": "2026",
+      "candidate": "0.2.0-local.1",
+      "java": 17,
+      "wpilib": "2026.2.1",
+      "ownCoordinates": [
+        "org.customvision:customvision-api:0.2.0-local.1",
+        "org.customvision:customvision-controls:0.2.0-local.1",
+        "org.customvision:customvision-protocol:0.2.0-local.1",
+        "org.customvision:customvision-wpilib2026:0.2.0-local.1"
+      ],
+      "externalCoordinates": [
+        "com.fasterxml.jackson.core:jackson-annotations:2.19.2",
+        "com.fasterxml.jackson.core:jackson-core:2.19.2",
+        "com.fasterxml.jackson.core:jackson-databind:2.19.2",
+        "edu.wpi.first.ntcore:ntcore-java:2026.2.1",
+        "edu.wpi.first.wpimath:wpimath-java:2026.2.1",
+        "edu.wpi.first.wpiunits:wpiunits-java:2026.2.1",
+        "edu.wpi.first.wpiutil:wpiutil-java:2026.2.1",
+        "org.ejml:ejml-cdense:0.44.0",
+        "org.ejml:ejml-core:0.44.0",
+        "org.ejml:ejml-ddense:0.44.0",
+        "org.ejml:ejml-dsparse:0.44.0",
+        "org.ejml:ejml-fdense:0.44.0",
+        "org.ejml:ejml-fsparse:0.44.0",
+        "org.ejml:ejml-simple:0.44.0",
+        "org.ejml:ejml-zdense:0.44.0",
+        "us.hebi.quickbuf:quickbuf-runtime:1.4"
+      ],
+      "compileOnly": true,
+      "hardware": false
+    },
+    "2027": {
+      "profile": "2027",
+      "candidate": "0.2.0-local.1",
+      "java": 25,
+      "wpilib": "2027.0.0-alpha-7",
+      "ownCoordinates": [
+        "org.customvision:customvision-api:0.2.0-local.1",
+        "org.customvision:customvision-controls:0.2.0-local.1",
+        "org.customvision:customvision-protocol:0.2.0-local.1",
+        "org.customvision:customvision-wpilib2027:0.2.0-local.1"
+      ],
+      "externalCoordinates": [
+        "io.avaje:avaje-json-core:3.14",
+        "io.avaje:avaje-jsonb-inject-plugin:3.14",
+        "io.avaje:avaje-jsonb:3.14",
+        "org.ejml:ejml-java9module:0.46.0",
+        "org.wpilib.datalog:datalog-java:2027.0.0-alpha-7",
+        "org.wpilib.ntcore:ntcore-java:2027.0.0-alpha-7",
+        "org.wpilib.wpimath:wpimath-java:2027.0.0-alpha-7",
+        "org.wpilib.wpiunits:wpiunits-java:2027.0.0-alpha-7",
+        "org.wpilib.wpiutil:wpiutil-java:2027.0.0-alpha-7",
+        "us.hebi.quickbuf:quickbuf-runtime:1.4"
+      ],
+      "compileOnly": true,
+      "hardware": false
+    }
+  },
+  "warnings_treated_as_errors": true,
+  "own_repository": "project-relative customvision/maven",
+  "hardware": false,
+  "actual_robot_project_modified": false,
+  "external_downloads": false
+}
