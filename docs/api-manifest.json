@@ -10,8 +10,8 @@
     "org.customvision.wpilib2027"
   ],
   "java_release": 17,
-  "source_revision": null,
-  "source_revision_policy": "Implementation commit will be pinned by a metadata-only follow-up; exact file hashes are authoritative.",
+  "source_revision": "12ee0ab5ede1e0d51c561f8a3d245a4e0822c926",
+  "source_revision_policy": "Pinned implementation commit; later metadata-only commit updates this manifest/handoff without changing source or artifact bytes.",
   "public_baseline_revision": "ae67886da70223e9ee73683ee2bcd00dc3221469",
   "candidate_publication": "local only, unpushed; public baseline lacks this admission/delivery-gate API",
   "producer_final_revision": "e9efef9e534f3841acacf782131c927485b7b4f2",
