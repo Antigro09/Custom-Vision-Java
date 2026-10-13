@@ -1,0 +1,9 @@
+// Explicitly apply from build.gradle after verifying the offline bundle manifest.
+// Requires the separately matched WPILib alpha-7 GradleRIO project and Java25.
+repositories {
+    maven { url = rootProject.file('customvision/maven').toURI() }
+}
+dependencies {
+    implementation 'org.customvision:customvision-wpilib2027:0.2.0-local.1'
+    implementation 'org.customvision:customvision-controls:0.2.0-local.1'
+}

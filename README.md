@@ -9,6 +9,7 @@ or commands motion.
 | Profile | Pin | Immediate use |
 | --- | --- | --- |
 | `protocol` | Java 17, schema 2 / `custom-vision-schema2-2026.1` | CPU replay and shared immutable DTOs |
+| `api` / `controls` | Java 17, `0.2.0-local.1` candidate | Camera/pose facade and injected motion-request boundary |
 | `wpilib2026` | WPILib 2026.2.1, Java 17, Gradle 8.11 | Separate roboRIO adapter |
 | `wpilib2027` | WPILib 2027.0.0-alpha-7, Java 25, Gradle 9.4.1 | Separate Systemcore adapter |
 
@@ -28,8 +29,8 @@ java -cp build/direct NoMotionReplay
 Reproducible Gradle checks:
 
 ```sh
-./gradlew --no-daemon :protocol:check :wpilib2026:check
-./gradlew2027 --no-daemon -Dorg.gradle.java.installations.paths="$CVJ_JAVA25" :protocol:check :wpilib2027:check
+./gradlew --no-daemon :protocol:check :api:check :controls:check :wpilib2026:check :wpilib2026:installExampleCheck
+./gradlew2027 --no-daemon -Dorg.gradle.java.installations.paths="$CVJ_JAVA25" :protocol:check :api:check :controls:check :wpilib2027:check :wpilib2027:installExampleCheck
 ```
 
 Install Java 17 and Java 25 locally; set `JAVA_HOME` to Java 17 and `CVJ_JAVA25`
@@ -50,6 +51,8 @@ source hash and reproduces exact bytes with CPU observations and injected NT clo
 Physical capture correction in fixtures is synthetic metadata, never hardware evidence.
 
 See [API and robot handoff](docs/HANDOFF.md), [target/API pins](docs/targets.md),
+[camera/pose facade](docs/CAPTAIN_API.md), [actual admission bridge](docs/ADMISSION_BRIDGE.md),
+[offline installation](docs/INSTALLATION.md), [drivetrain request contracts](controls/README.md),
 [lifecycle](docs/lifecycle.md), [time/history/ordering](docs/time-history-ordering.md),
 [validation report](docs/VALIDATION.md), [Python interoperability](docs/PYTHON_INTEROP.md),
 and [separate hardware checks](docs/HARDWARE_CHECKS.md).

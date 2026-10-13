@@ -1,0 +1,90 @@
+{
+  "candidate": "0.2.0-local.1",
+  "checks": [
+    "corrupted bundle rejected before staging",
+    "exact package staged into explicit disposable Gradle project",
+    "identical repeated install is idempotent",
+    "different installed artifact refused and preserved",
+    "2027 package refused in project with 2026 profile receipt",
+    "symlink destination refused without writing target"
+  ],
+  "commonCoordinateBytesEqual": true,
+  "commonCoordinateFiles": [
+    {
+      "path": "maven/org/customvision/customvision-protocol/0.2.0-local.1/customvision-protocol-0.2.0-local.1-sources.jar",
+      "sha256": "bba10e7acd69dd5eec7128c6970f7a9f6039c4f69ee62c8e8f606bbe94662dc2"
+    },
+    {
+      "path": "maven/org/customvision/customvision-protocol/0.2.0-local.1/customvision-protocol-0.2.0-local.1.jar",
+      "sha256": "62d5a16c558a2fc11855f1f675fc09efe0f3b878eb0bc5e61d64ae4ac8bcc85f"
+    },
+    {
+      "path": "maven/org/customvision/customvision-protocol/0.2.0-local.1/customvision-protocol-0.2.0-local.1.module",
+      "sha256": "0eb8a0b72dc18124c98d05f5eb0bbe9ae83abfb9f24cceb3f7f4872b7073dfa3"
+    },
+    {
+      "path": "maven/org/customvision/customvision-protocol/0.2.0-local.1/customvision-protocol-0.2.0-local.1.pom",
+      "sha256": "47b15d75da176910bec6df6728a01a99c88147600b725b326b3988892874208a"
+    },
+    {
+      "path": "maven/org/customvision/customvision-api/0.2.0-local.1/customvision-api-0.2.0-local.1-sources.jar",
+      "sha256": "94d31fab631d6273ae80e4d59784432fa2a6d47cf852daa0e8bd371b5f800c9a"
+    },
+    {
+      "path": "maven/org/customvision/customvision-api/0.2.0-local.1/customvision-api-0.2.0-local.1.jar",
+      "sha256": "795583814a263bcdaa517aef54eecbe0e38f565c486461f3238a4a056dedb9fc"
+    },
+    {
+      "path": "maven/org/customvision/customvision-api/0.2.0-local.1/customvision-api-0.2.0-local.1.module",
+      "sha256": "12c13bb4ed33986014cde27e02686dc31728dfd364742ece490b11287e22c8f1"
+    },
+    {
+      "path": "maven/org/customvision/customvision-api/0.2.0-local.1/customvision-api-0.2.0-local.1.pom",
+      "sha256": "d99fa35c51108cf54770d990c4da29909fd14a568ed7c92b2f60026a6a2e6444"
+    },
+    {
+      "path": "maven/org/customvision/customvision-controls/0.2.0-local.1/customvision-controls-0.2.0-local.1-sources.jar",
+      "sha256": "13217eb1ae18892791407a510f4388e8d08303ea157931458990d88623ec7bd9"
+    },
+    {
+      "path": "maven/org/customvision/customvision-controls/0.2.0-local.1/customvision-controls-0.2.0-local.1.jar",
+      "sha256": "f2c9fd7c857eea9518f086e7b57924d733dcfe5c84e3d602c1ce16aa10e4a5b9"
+    },
+    {
+      "path": "maven/org/customvision/customvision-controls/0.2.0-local.1/customvision-controls-0.2.0-local.1.module",
+      "sha256": "d99d6e369cfcabcd0f5a61515ccdd3d41cdc80205ce22c0886f1374c308dc5bf"
+    },
+    {
+      "path": "maven/org/customvision/customvision-controls/0.2.0-local.1/customvision-controls-0.2.0-local.1.pom",
+      "sha256": "41892cc8d7262231f34ef882c2203af970e2faf7a9905d93e740f393ba2dca11"
+    }
+  ],
+  "environment": {
+    "kind": "CPU desktop Python-only filesystem verification",
+    "python": "3.9.6"
+  },
+  "format": "customvision-controller-packaging-check-v1",
+  "gradleModuleFormatVersionFirst": true,
+  "profiles": {
+    "2026": {
+      "archive": "build/install-bundles/customvision-2026-0.2.0-local.1.zip",
+      "archiveSha256": "6b304e379cce5d37abf823605d4328a9f25f44e3ca7109f299a7bea771d25d89",
+      "deterministicRepack": true,
+      "fileCount": 21,
+      "manifestVerified": true
+    },
+    "2027": {
+      "archive": "build/install-bundles/customvision-2027-0.2.0-local.1.zip",
+      "archiveSha256": "213653843eb5f1ba79f9d1d08a8207be3eadf1012e3d1691ef1040f2d222f7f7",
+      "deterministicRepack": true,
+      "fileCount": 21,
+      "manifestVerified": true
+    }
+  },
+  "scope": {
+    "gradleExecutedByThisCheck": false,
+    "hardware": false,
+    "network": false,
+    "robotProjectModified": false
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "2026": {
+    "api": [
+      "wpiutil2026.2.1 (protobuf/struct/datalog public types)",
+      "wpiunits2026.2.1 (Distance public geometry signatures)",
+      "quickbuf-runtime1.4 (NT public ProtoMessage bound)",
+      "ejml-simple0.44.0 (Matrix SimpleMatrix public type)",
+      "jackson-annotations2.19.2 (geometry JsonCreator/JsonProperty; strict consumer missing-annotation warning)"
+    ],
+    "implementation": [
+      "jackson-core2.19.2",
+      "jackson-databind2.19.2"
+    ]
+  },
+  "2027": {
+    "api": [
+      "wpiutil2027.0.0-alpha-7 (protobuf/struct public types)",
+      "wpiunits2027.0.0-alpha-7 (Distance public geometry signatures)",
+      "datalog2027.0.0-alpha-7 (NT public DataLog signature)",
+      "quickbuf-runtime1.4 (NT public ProtoMessage bound)",
+      "ejml-java9module0.46.0 (Matrix SimpleMatrix public type)"
+    ],
+    "implementation": [
+      "avaje-jsonb3.14 (not exposed by those public signatures; runtime serialization support)"
+    ]
+  },
+  "compilerWarningSuppressed": false,
+  "format": "customvision-public-dependency-closure-v1",
+  "inspection": "Local pinned released jars with JDK25 jdeps --api-only -verbose:class; no downloads/native execution",
+  "publicTypes": [
+    "NetworkTableInstance",
+    "Pose2d",
+    "Pose3d",
+    "Matrix"
+  ],
+  "testOnlyDependencyWorkaround": false,
+  "versionsChanged": false
+}

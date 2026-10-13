@@ -1,5 +1,11 @@
-plugins { id 'java-library' }
-java { toolchain { languageVersion = JavaLanguageVersion.of(17) } }
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(17) }
+    withSourcesJar()
+}
 repositories {
     maven { url = 'https://frcmaven.wpi.edu/artifactory/api/download/release' }
     mavenCentral()
@@ -7,13 +13,15 @@ repositories {
 def wpilibVersion = '2026.2.1'
 dependencies {
     api project(':protocol')
+    api project(':api')
     api "edu.wpi.first.ntcore:ntcore-java:${wpilibVersion}"
     api "edu.wpi.first.wpimath:wpimath-java:${wpilibVersion}"
-    implementation "edu.wpi.first.wpiutil:wpiutil-java:${wpilibVersion}"
-    implementation "edu.wpi.first.wpiunits:wpiunits-java:${wpilibVersion}"
-    implementation 'us.hebi.quickbuf:quickbuf-runtime:1.4'
-    implementation 'org.ejml:ejml-simple:0.44.0'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.19.2'
+    // Public NT/Pose/Matrix signatures also expose these classes/annotations.
+    api "edu.wpi.first.wpiutil:wpiutil-java:${wpilibVersion}"
+    api "edu.wpi.first.wpiunits:wpiunits-java:${wpilibVersion}"
+    api 'us.hebi.quickbuf:quickbuf-runtime:1.4'
+    api 'org.ejml:ejml-simple:0.44.0'
+    api 'com.fasterxml.jackson.core:jackson-annotations:2.19.2'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.19.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.19.2'
 }
@@ -25,6 +33,30 @@ tasks.register('adapterTest', JavaExec) {
     javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) }
 }
 tasks.named('check') { dependsOn 'adapterTest' }
+tasks.register('captainApiTest', JavaExec) {
+    workingDir rootProject.projectDir
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'org.customvision.wpilib2026.CaptainApiTests'
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) }
+}
+tasks.named('check') { dependsOn 'captainApiTest' }
+tasks.register('installExampleCheck', JavaCompile) {
+    dependsOn rootProject.tasks.named('package2026')
+    source = rootProject.fileTree('examples/install-2026') { include '*.java' }
+    destinationDirectory = layout.buildDirectory.dir('install-example-classes')
+    javaCompiler = javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(17) }
+    options.release = 17
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-Xlint:all', '-Werror']
+    def externalLibraries = configurations.runtimeClasspath.incoming.artifactView {
+        componentFilter { it instanceof org.gradle.api.artifacts.component.ModuleComponentIdentifier }
+    }.files
+    classpath = externalLibraries + rootProject.fileTree("build/install-bundles/customvision-2026-${rootProject.version}/maven") {
+        include '**/*.jar'
+        exclude '**/*-sources.jar'
+    }
+}
 tasks.register('nativeLoopback', JavaExec) {
     dependsOn testClasses
     classpath = sourceSets.test.runtimeClasspath

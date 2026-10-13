@@ -1,4 +1,7 @@
-plugins { id 'java-library' }
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
 java {
     toolchain { languageVersion = JavaLanguageVersion.of(17) }
     withSourcesJar()

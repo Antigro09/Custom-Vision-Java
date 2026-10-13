@@ -1,5 +1,33 @@
 # API and robot handoff recipe
 
+The local `0.2.0-local.1` implementation is pinned to commit
+`12ee0ab5ede1e0d51c561f8a3d245a4e0822c926` on `feature/captain-api`.
+The subsequent handoff commit changes metadata only. Public `main` remains
+`ae67886da70223e9ee73683ee2bcd00dc3221469`, which lacks this candidate's new
+admitted-envelope and delivery-gate APIs. Neither candidate commit is pushed.
+
+The separate Java17 protocol artifact is
+`protocol/build/libs/customvision-protocol-0.2.0-local.1.jar`, SHA256
+`62d5a16c558a2fc11855f1f675fc09efe0f3b878eb0bc5e61d64ae4ac8bcc85f`.
+Its source JAR SHA256 is
+`bba10e7acd69dd5eec7128c6970f7a9f6039c4f69ee62c8e8f606bbe94662dc2`.
+The protocol source-entry manifest SHA256 is
+`f25ec7090d1a36192ee4780465835ee6c6112bdf6b8caafa374bff50b7d3d8af`;
+[api-manifest.json](api-manifest.json) defines the encoding and all exact file pins.
+Run `python3 tools/check_api_manifest.py --artifacts` after building this candidate.
+
+`Measurement.packet()/transport()/admission()/clock()/capture()` and
+`DeliveryGate.isDeliverable(Measurement,long nowRobotNs)` are frozen for this
+milestone. Bind World-State's live bridge to
+`CustomVisionRig.observationDeliveryGate()` and install its
+`acceptRobotNanoseconds` method as the exclusive observation callback. The direct
+client bridge remains available to applications that own a `VisionClient`.
+Actual native end-to-end checks passed 61 assertions per profile against clean
+World-State `d24f2bbf11a4f9b3b73c7d3a05f3b6f416204117`.
+See [admission lifecycle](ADMISSION_BRIDGE.md), [candidate outcomes](LOCAL_CANDIDATE_REPORT.md)
+and [offline controller packages](INSTALLATION.md). This is a local library handoff;
+actual robot-code integration remains on hold.
+
 The dependency direction is `robot / optional World-State adapter -> protocol`.
 The versioned NT modules also depend on protocol. Protocol depends on neither
 WPILib nor World-State. World-State owns historical field projection, covariance

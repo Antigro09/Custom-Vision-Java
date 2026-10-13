@@ -1,0 +1,10 @@
+// Explicitly apply from build.gradle after verifying the offline bundle manifest.
+// This repository contains only Custom-Vision's own Java jars. GradleRIO/the
+// caller supplies the already matched WPILib Java/native dependency set.
+repositories {
+    maven { url = rootProject.file('customvision/maven').toURI() }
+}
+dependencies {
+    implementation 'org.customvision:customvision-wpilib2026:0.2.0-local.1'
+    implementation 'org.customvision:customvision-controls:0.2.0-local.1'
+}

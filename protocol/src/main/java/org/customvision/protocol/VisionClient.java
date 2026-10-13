@@ -30,8 +30,50 @@ public final class VisionClient implements AutoCloseable {
   }
   /** Validated capture-relative packet; mapping may be rejected, but receipt has no estimator effect. */
   public record Receipt(Packet packet, TransportSample transport, ClockMapper.Result clock) {}
-  /** Strictly clock-gated, globally capture-ordered, consume-once candidate group for robot-owned policy. */
-  public record Measurement(Packet packet, ClockMapper.MappedCapture capture) {}
+  @FunctionalInterface
+  public interface DeliveryGate {
+    /** Validates only delivery freshness/provenance; it never admits, projects, fuses or moves. */
+    boolean isDeliverable(Measurement observation, long nowRobotNs);
+  }
+  /**
+   * An immutable admitted observation, emitted only by this client's consume-once channel.
+   * The actual lifecycle and clock results are retained; consumers never reconstruct acceptance.
+   * Admission is historical provenance, not perpetual freshness or authority to move/fuse.
+   */
+  public static final class Measurement {
+    private final Packet packet;
+    private final TransportSample transport;
+    private final SourceSession.Result admission;
+    private final ClockMapper.Result clock;
+    private final Object clientIdentity;
+    private final long sourceGeneration;
+
+    private Measurement(Packet packet, TransportSample transport,
+        SourceSession.Result admission, ClockMapper.Result clock, Object clientIdentity, long sourceGeneration) {
+      this.packet = Objects.requireNonNull(packet);
+      this.transport = Objects.requireNonNull(transport);
+      this.admission = Objects.requireNonNull(admission);
+      this.clock = Objects.requireNonNull(clock);
+      this.clientIdentity = Objects.requireNonNull(clientIdentity);
+      this.sourceGeneration = sourceGeneration;
+      if (admission.kind() != SourceSession.Kind.ACCEPTED
+          || admission.newlyAcceptedMeasurement().orElse(null) != packet || !clock.accepted())
+        throw new IllegalArgumentException("measurement requires this exact admitted packet and accepted clock");
+      ClockMapper.MappedCapture capture = clock.capture().orElseThrow();
+      if (capture.rawCaptureServerUs() != packet.captureServerUs()
+          || capture.rawNtTimestamp() != transport.ntTimestamp()
+          || capture.rawNtServerTime() != transport.ntServerTime()
+          || capture.firstObservedRobotNs() != transport.firstObservedRobotNs()
+          || capture.dequeueRobotNs() != transport.dequeueRobotNs()
+          || capture.connectionEpoch() != transport.connectionEpoch())
+        throw new IllegalArgumentException("measurement clock/transport provenance differs");
+    }
+    public Packet packet() { return packet; }
+    public TransportSample transport() { return transport; }
+    public SourceSession.Result admission() { return admission; }
+    public ClockMapper.Result clock() { return clock; }
+    public ClockMapper.MappedCapture capture() { return clock.capture().orElseThrow(); }
+  }
   public record Rejection(SourceKey source, String stage, String reason, String location) {}
   public record Counters(long decoded, long decodeRejected, long overloads, long timeRejected,
       long lifecycleRejected, long rejectedDiagnosticsLost, int pendingReceipts, int pendingMeasurements,
@@ -39,12 +81,15 @@ public final class VisionClient implements AutoCloseable {
   private static final class State {
     final Input input;
     final SourceSession session;
+    long generation;
+    boolean generationActive;
     State(Input input) { this.input = input; session = new SourceSession(input.source()); }
   }
   private final ProtocolDecoder decoder;
   private final ClockMapper mapper;
   private final Limits limits;
   private final LongSupplier robotClock;
+  private final Object clientIdentity = new Object();
   private final List<State> states;
   private final CaptureReorderBuffer<Measurement> reorder;
   private final ArrayDeque<Receipt> receipts = new ArrayDeque<>();
@@ -126,25 +171,38 @@ public final class VisionClient implements AutoCloseable {
     SourceSession.Status after = state.session.status();
     if (!before.bootId().equals(after.bootId()) || !before.revision().equals(after.revision())
         || before.connectionEpoch() != after.connectionEpoch() || !after.actionable()) purge(packet.source());
+    if (lostFamily(before, after)) purgeMeasurements(packet.source());
     // A clearing publication is applied before observation dedup, including same-frame tombstones.
     if (result.kind() == SourceSession.Kind.ACCEPTED && !packet.usable()) purge(packet.source());
     if (result.kind() == SourceSession.Kind.REJECTED) {
       lifecycleRejected++; reject(new Rejection(packet.source(), "lifecycle", result.reason().name(), "$"));
     }
     if (result.newlyAcceptedMeasurement().isEmpty()) return;
-    SyncSnapshot snapshot = state.input.sync().get();
-    now = refreshNow(now); // Sync retrieval can also observe a later robot time.
-    ClockMapper.Result clock = mapper.map(packet, sample, snapshot, now);
+    ClockMapper.Result clock;
+    try {
+      SyncSnapshot snapshot = Objects.requireNonNull(state.input.sync().get(), "synchronization provider returned null");
+      now = refreshNow(now); // Sync retrieval can also observe a later robot time.
+      clock = mapper.map(packet, sample, snapshot, now);
+    } catch (RuntimeException exception) {
+      state.session.rejectCaptureMapping(); purgeMeasurements(packet.source()); timeRejected++;
+      reject(new Rejection(packet.source(), "clock_binding", "CLOCK_BINDING_FAILED", "$.capture_server_us"));
+      throw new IllegalStateException("synchronization/clock binding failed for " + packet.source(), exception);
+    }
     if (receipts.size() == limits.outputDepth()) { overloaded(state, now, "receipt_output"); return; }
     receipts.addLast(new Receipt(packet, sample, clock));
     if (!clock.accepted()) {
-      state.session.rejectCaptureMapping(); timeRejected++;
+      state.session.rejectCaptureMapping(); purgeMeasurements(packet.source()); timeRejected++;
       reject(new Rejection(packet.source(), "clock", clock.rejection().orElseThrow().reason().name(), "$.capture_server_us"));
       return;
     }
     ClockMapper.MappedCapture capture = clock.capture().orElseThrow();
-    state.session.recordCaptureMapping(packet, capture.robotCaptureNs(), now, mapper.config().maxCaptureAgeNs());
-    Measurement measurement = new Measurement(packet, capture);
+    if (!state.session.recordCaptureMapping(packet, capture.robotCaptureNs(), now, mapper.config().maxCaptureAgeNs())) {
+      purgeMeasurements(packet.source()); timeRejected++;
+      reject(new Rejection(packet.source(), "capture_state", "SOURCE_CAPTURE_STATE_REJECTED", "$.capture_server_us"));
+      return;
+    }
+    state.generationActive = true;
+    Measurement measurement = new Measurement(packet, sample, result, clock, clientIdentity, state.generation);
     String identity = observationIdentity(packet);
     CaptureReorderBuffer.Offer offered = reorder.offer(new CaptureReorderBuffer.Entry<>(
         identity, packet.source(), capture.robotCaptureNs(), measurement), now);
@@ -189,9 +247,26 @@ public final class VisionClient implements AutoCloseable {
     reject(new Rejection(state.input.source(), stage, "OVERLOAD", "$"));
   }
   private void purge(SourceKey source) {
+    purgeMeasurements(source);
+    receipts.removeIf(value -> value.packet().source().equals(source));
+  }
+  private void purgeMeasurements(SourceKey source) {
+    State state = find(source);
+    // Fence copies already drained into a facade/consumer queue. Repeated quiet-cycle expiry
+    // does not keep advancing the generation once this interval has been invalidated.
+    if (state.generationActive) {
+      state.generation = Math.incrementExact(state.generation);
+      state.generationActive = false;
+    }
     reorder.removeSource(source);
     measurements.removeIf(value -> value.packet().source().equals(source));
-    receipts.removeIf(value -> value.packet().source().equals(source));
+  }
+  private static boolean lostFamily(SourceSession.Status before, SourceSession.Status after) {
+    if (before.currentPacket().isEmpty() || after.currentPacket().isEmpty()) return false;
+    Packet previous = before.currentPacket().orElseThrow(), current = after.currentPacket().orElseThrow();
+    for (String family : List.of("localization", "poi", "objects"))
+      if (previous.familyValid(family) && !current.familyValid(family)) return true;
+    return !previous.detections().isEmpty() && current.detections().isEmpty();
   }
   private void reject(Rejection rejection) {
     if (rejections.size() == limits.outputDepth()) { rejections.removeFirst(); rejectionLost++; }
@@ -204,6 +279,11 @@ public final class VisionClient implements AutoCloseable {
   public void disconnect(SourceKey source, long connectionEpoch, long nowRobotNs) {
     own(nowRobotNs); find(source).session.disconnect(connectionEpoch, nowRobotNs); purge(source);
   }
+  /** Report lost downstream handoff/output. Clear this source until a fresh advancing packet arrives. */
+  public void reportDeliveryOverload(SourceKey source, long nowRobotNs) {
+    nowRobotNs = refreshNow(nowRobotNs);
+    overloaded(find(Objects.requireNonNull(source)), nowRobotNs, "downstream_output");
+  }
   /** Raw accepted receipts for diagnostics. These are not insertion requests. */
   public List<Receipt> drainReceipts() { own(lastNow); return drain(receipts); }
   public List<Measurement> drainMeasurements() { return drainMeasurements(Math.max(0, lastNow)); }
@@ -212,6 +292,25 @@ public final class VisionClient implements AutoCloseable {
     for (State state : states) expireState(state, nowRobotNs);
     expireMeasurements(nowRobotNs);
     return drain(measurements);
+  }
+  /**
+   * Revalidate a retained envelope before a facade/consumer delivers it. A status can invalidate
+   * an output and then recover in one poll; final source status alone cannot prove its validity.
+   * This does not emit another measurement or refresh any age, and does not authorize motion/fusion.
+   */
+  public boolean isDeliverable(Measurement observation, long nowRobotNs) {
+    Objects.requireNonNull(observation);
+    nowRobotNs = refreshNow(nowRobotNs);
+    if (observation.clientIdentity != clientIdentity) return false;
+    State state = find(observation.packet().source());
+    expireState(state, nowRobotNs);
+    SourceSession.Status status = state.session.status();
+    return state.generationActive && observation.sourceGeneration == state.generation
+        && status.actionable() && status.fusionEligible()
+        && status.bootId().orElse("").equals(observation.packet().bootId())
+        && status.revision().orElse("").equals(observation.packet().revision())
+        && status.connectionEpoch() == observation.transport().connectionEpoch()
+        && nowRobotNs >= observation.capture().robotCaptureNs() && !stale(observation, nowRobotNs);
   }
   public List<Rejection> drainRejections() { own(lastNow); return drain(rejections); }
   private static <T> List<T> drain(ArrayDeque<T> queue) {
